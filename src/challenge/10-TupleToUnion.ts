@@ -22,6 +22,16 @@
 
 type TupleToUnion<T extends readonly any[]> = T[number];
 
+type Test = [123, "456", true];
+
+const arr = new Array<number>(3).fill(5);
+
+const arr1 = [1, 2, 3];
+
+type Ex1 = keyof typeof arr1;
+
+const foo: Ex1 = "length";
+
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from "@type-challenges/utils";
 

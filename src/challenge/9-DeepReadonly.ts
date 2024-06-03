@@ -37,10 +37,31 @@
 /* _____________ Your Code Here _____________ */
 
 type DeepReadonly<T> = {
-  readonly [key in keyof T]: keyof T[key] extends never
-    ? T[key]
-    : DeepReadonly<T[key]>;
+  readonly [K in keyof T]: keyof T[K] extends never ? T[K] : DeepReadonly<T[K]>;
 };
+
+const ff = new Function();
+
+type FF = typeof ff;
+
+type KK = keyof FF;
+
+type DeepReadonly1<T> = {
+  readonly [K in keyof T]: T[K] extends Record<PropertyKey, any>
+    ? DeepReadonly<T[K]>
+    : T[K];
+};
+
+type Ex2 = { name: number; age: number };
+type Ex3 = Record<"name" | "age", number>;
+
+type AnyRecord = Record<PropertyKey, any>;
+
+const myArr: AnyRecord = () => 22;
+
+// type Record<K extends keyof any, T> = {
+//     [P in K]: T;
+// };
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from "@type-challenges/utils";
