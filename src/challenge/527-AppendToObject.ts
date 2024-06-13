@@ -94,3 +94,20 @@ type testExpect3 = {
   > View solutions: https://tsch.js.org/527/solutions
   > More Challenges: https://tsch.js.org
 */
+
+type A = {
+  a: number;
+};
+
+type B = {
+  b: string;
+};
+
+type AB = A & B;
+
+type C = {
+  a: number;
+  b: string;
+};
+
+type Test = Equal<AB, C>;
