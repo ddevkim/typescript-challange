@@ -31,21 +31,16 @@
 
 /* _____________ Your Code Here _____________ */
 
-type MyPick1<T, K> = K extends keyof T ? { [key in K]: T[key] } : never;
-type MyPick2<T, K extends keyof T> = { [key in K]: T[key] };
-
-type Foo = MyPick1<Todo, "title" | "completed">;
-type Goo = Pick<Todo, "title" | "completed">;
+type Pick<T extends object, K extends keyof T> = {
+  [Key in keyof T as Key extends K ? Key : never]: T[Key];
+};
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from "@type-challenges/utils";
 
-type Test = MyPick<Todo, "title" | "completed">;
-type Result = Equal<Expected2, Test>;
-
 type cases = [
-  Expect<Equal<Expected1, MyPick<Todo, "title">>>,
-  Expect<Equal<Expected2, MyPick<Todo, "title" | "completed">>>,
+  Expect<Equal<Expected1, Pick<Todo, "title">>>,
+  Expect<Equal<Expected2, Pick<Todo, "title" | "completed">>>,
   // @ts-expect-error
   MyPick<Todo, "title" | "completed" | "invalid">,
 ];
